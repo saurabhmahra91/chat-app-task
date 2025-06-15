@@ -1,0 +1,204 @@
+/* Auth.css */
+
+/* General body styling */
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    /* Using Inter, a common clean sans-serif font */
+    background-color: #f0f2f5;
+    /* Light grey background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding: 20px;
+    /* Add some padding for smaller screens */
+}
+
+/* Auth screen container */
+.auth-container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    /* Rounded corners */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    /* Soft shadow */
+    width: 100%;
+    max-width: 400px;
+    /* Max width for the form */
+    text-align: center;
+    box-sizing: border-box;
+    /* Ensure the container adapts its height based on content but prevents jumps */
+    display: flex;
+    /* Use flexbox to center content vertically within */
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Form headings */
+.auth-container h2 {
+    font-size: 28px;
+    font-weight: 700;
+    /* Bold */
+    color: #212529;
+    /* Dark text */
+    margin-bottom: 8px;
+}
+
+.auth-container p.subtitle {
+    font-size: 16px;
+    color: #6c757d;
+    /* Muted text */
+    margin-bottom: 30px;
+}
+
+/* Form group for labels and inputs */
+.form-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #212529;
+    margin-bottom: 8px;
+}
+
+/* Input fields */
+.auth-container input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ced4da;
+    /* Light grey border */
+    border-radius: 8px;
+    /* Rounded input fields */
+    font-size: 16px;
+    color: #495057;
+    box-sizing: border-box;
+    /* Include padding and border in the element's total width and height */
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.auth-container input::placeholder {
+    color: #adb5bd;
+    /* Placeholder color */
+}
+
+.auth-container input:focus {
+    border-color: #007bff;
+    /* Blue border on focus */
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    /* Subtle shadow on focus */
+}
+
+/* Forgot password link */
+.forgot-password {
+    text-align: right;
+    margin-bottom: 25px;
+}
+
+.forgot-password a {
+    font-size: 14px;
+    color: #007bff;
+    /* Blue link color */
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+.forgot-password a:hover {
+    color: #0056b3;
+    /* Darker blue on hover */
+}
+
+/* Primary button (Login/Signup) */
+.auth-button {
+    width: 100%;
+    padding: 12px 20px;
+    background-color: #212529;
+    /* Dark primary button */
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    margin-bottom: 20px;
+}
+
+.auth-button:hover {
+    background-color: #343a40;
+    /* Slightly darker on hover */
+}
+
+/* Google login button */
+.google-button {
+    width: 100%;
+    padding: 12px 20px;
+    background-color: #ffffff;
+    color: #495057;
+    border: 1px solid #ced4da;
+    /* Light border */
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    /* Space between icon and text */
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    margin-bottom: 30px;
+}
+
+.google-button:hover {
+    background-color: #f8f9fa;
+    /* Slightly lighter on hover */
+    border-color: #adb5bd;
+}
+
+.google-button img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Switch auth mode link */
+.switch-auth-mode {
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.switch-auth-mode button {
+    background: none;
+    border: none;
+    color: #007bff;
+    /* Blue link color */
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    /* Remove default button padding */
+    transition: color 0.2s ease-in-out;
+}
+
+.switch-auth-mode button:hover {
+    color: #0056b3;
+    /* Darker blue on hover */
+}
+
+/* General form styling */
+form {
+    display: flex;
+    flex-direction: column;
+    /* Set a minimum height for the forms to prevent resizing */
+    min-height: 450px;
+    /* Adjust this value as needed to fit the tallest form */
+    justify-content: space-between;
+    /* Distribute space evenly if content is shorter */
+}

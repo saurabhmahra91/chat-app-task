@@ -1,0 +1,136 @@
+.chat-app {
+    display: flex;
+    height: 90vh;
+    font-family: sans-serif;
+    min-width: 1368px;
+}
+
+.sidebar {
+    width: 300px;
+    background-color: #f1f1f1;
+    border-right: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-bar {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    background-color: #eee;
+    border-bottom: 1px solid #ccc;
+}
+
+.top-bar-icons button {
+    margin-left: 10px;
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+.chat-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.chat-list li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.chat-list li.active,
+.chat-list li:hover {
+    background-color: #ddd;
+}
+
+.chat-panel {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    background-color: #fafafa;
+}
+
+.chat-messages {
+    flex-grow: 1;
+    padding: 10px;
+    overflow-y: auto;
+    background-color: #fff;
+}
+
+.message {
+    margin: 5px 0;
+    max-width: 70%;
+    padding: 8px;
+    border-radius: 6px;
+}
+
+.message.sent {
+    background-color: #dcf8c6;
+    align-self: flex-end;
+}
+
+.message.received {
+    background-color: #ececec;
+    align-self: flex-start;
+}
+
+.chat-input {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+}
+
+.chat-input input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.chat-input button {
+    margin-left: 10px;
+    padding: 10px;
+    border: none;
+    background-color: #4caf50;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.chat-messages {
+    flex-grow: 1;
+    padding: 10px;
+    overflow-y: auto;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    max-width: 60%;
+    padding: 10px 15px;
+    border-radius: 18px;
+    margin: 5px 0;
+    word-wrap: break-word;
+}
+
+.sent {
+    align-self: flex-end;
+    background-color: #dcf8c6;
+    text-align: right;
+}
+
+.received {
+    align-self: flex-start;
+    background-color: #ececec;
+    text-align: left;
+}
