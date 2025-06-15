@@ -12,9 +12,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        os.environ.get("FRONTEND_HOST", "http://localhost:3000")
-    ],  # ideally use ["http://localhost:5173"] or your deployed frontend URL
+    allow_origins=["*"],  # ideally use ["http://localhost:5173"] or your deployed frontend URL
     allow_credentials=True,
     allow_methods=["*"],  # or ["POST", "GET", "OPTIONS"]
     allow_headers=["*"],

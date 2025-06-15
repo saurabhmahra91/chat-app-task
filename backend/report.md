@@ -53,76 +53,94 @@ The chat application consists of:
 
 ---
 
-### Solution for Maximum concurrent users
+#### Estimating Max Concurrent Users
 
-Total messages per second × CPU per message ≤ 1600 ms CPU
-$$
-    M \times (6 + 0.1(n - 1)) \leq 1600
-$$
+To find how many users the system can support before CPU becomes saturated, we start with earlier assumptions:
 
-But \( M \) (messages per second) ≈ number of users \( n \), since 1 msg/sec/user.
+##### CPU Cost Per Message
 
-Rearranging for \( n \):
+Each user sends **1 message per second**, and each message incurs:
 
-$$
-n \times (6 + 0.1(n - 1)) \leq 1600
-$$
+- **DB write** → ~1 ms CPU  
+- **WebSocket sends to (N - 1) clients** → 0.2 ms per client
 
-Approximate:
+So, CPU time per message:
 
-$$
-n \times (6 + 0.1n) \leq 1600
-$$
+```
+CPU_per_message = 1 ms + 0.2 × (N - 1) ms
+```
 
-$$
-6n + 0.1n^2 \leq 1600
-$$
-
-Multiply by 10:
-
-$$
-60n + n^2 \leq 16000
-$$
-
-Rewrite as quadratic inequality:
-
-$$
-n^2 + 60n - 16000 \leq 0
-$$
-
-Solve quadratic equation:
-
-$$
-n = \frac{-60 \pm \sqrt{60^2 + 4 \times 16000}}{2} = \frac{-60 \pm \sqrt{3600 + 64000}}{2} = \frac{-60 \pm \sqrt{67600}}{2}
-$$
-
-$$
-\sqrt{67600} \approx 260
-$$
-
-Positive root:
-
-$$
-n = \frac{-60 + 260}{2} = \frac{200}{2} = 100
-$$
-
-**Interpretation:**
-
-Maximum concurrent users before CPU saturation ≈ **100 users**
+Where `N` = number of concurrent users (each with a WebSocket connection).
 
 ---
 
-### Interpretation:
+##### Total CPU Budget
 
-- **Max concurrent users: ~98 users** sending 1 msg/sec simultaneously before CPU saturates.  
-- Beyond this, CPU becomes the bottleneck, causing latency or dropped connections.
+- The server has **2 vCPUs** → 2 × 1000 ms = 2000 ms CPU time/sec  
+- Assuming **80% usable CPU** (to leave room for OS, FastAPI, etc):  
+  ```
+  Max usable CPU for message handling = 1600 ms/sec
+  ```
+
+---
+
+##### Total CPU Usage Per Second
+
+If all **N users** send **1 message per second**, total messages/sec = `N`
+
+Total CPU usage per second:
+
+```
+Total_CPU = N × [1 + 0.2 × (N - 1)]
+```
+
+Simplify:
+
+```
+Total_CPU = N × (1 + 0.2N - 0.2) = N × (0.8 + 0.2N)
+```
+
+---
+
+#### 🧩 Final Equation
+
+To avoid CPU saturation:
+
+```
+N × (0.8 + 0.2N) ≤ 1600
+```
+
+Multiply through to clear decimals:
+
+```
+0.2N² + 0.8N ≤ 1600
+→ N² + 4N ≤ 8000
+```
+
+Now solve the quadratic:
+
+```
+N² + 4N - 8000 ≤ 0
+
+N = [-4 ± √(4² + 4×8000)] / 2
+  = [-4 ± √(16 + 32000)] / 2
+  = [-4 ± √32016] / 2
+  ≈ [-4 + 179] / 2 = 87.5
+```
+
+---
+
+#### ✅ Conclusion
+
+**Maximum concurrent users ≈ 87**  
+(Each sending 1 msg/sec, before CPU becomes a bottleneck)
 
 ---
 
 ### Memory
 
 - WebSocket connection overhead ~200 KB per connection (buffers, stack, etc)  
-- For 98 users: ~19.6 MB RAM, which is well within 8GB RAM limit.  
+- For 87 users: ~17.4 MB RAM, which is well within 8GB RAM limit.  
 - DB and other processes consume the rest.
 
 ---
@@ -131,7 +149,7 @@ Maximum concurrent users before CPU saturation ≈ **100 users**
 
 - Message size ~200 bytes  
 - Total outgoing data/sec ≈ 200 bytes × (M users) × (M - 1) clients  
-- For 98 users: ~200 × 98 × 97 = ~1.9 MB/sec outgoing traffic  
+- For 87 users: ~200 × 87 × 86 = ~1.4 MB/sec outgoing traffic  
 - Network bandwidth on GCP instance (~1 Gbps) is sufficient here.
 
 ---
